@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import Button from 'antd/lib/button'
+import React, {useEffect, useState} from 'react';
 import GetHotSearchesByDuration from "../api/hot-search";
 import HotSearch from '../components/HotSearch';
+import {BackTop} from 'antd';
 
 const Home = () => {
     const [hotSearchData, setHotSearchData] = useState();
-    const handleBtnGetHotSearches = () => {
+    const handleGetCurrentHotSearch = () => {
         const start = ""
         const stop = ""
         GetHotSearchesByDuration(start, stop)
@@ -26,13 +26,15 @@ const Home = () => {
             .catch((err) => {
                 console.log(err);
             })
-    }
+    };
+
+    useEffect(() => {
+        handleGetCurrentHotSearch();
+    }, []);
 
     return (
         <div>
-            <Button onClick={handleBtnGetHotSearches}>
-                Get Hot Searches
-            </Button>
+            <BackTop/>
             <HotSearch hotSearch={hotSearchData}/>
         </div>
     );
