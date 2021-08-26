@@ -1,13 +1,16 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from 'echarts';
 
-const HotSearchRank = () => {
+const HotSearchRank = (props) => {
     const chartRef = useRef(null);
+
     const xArr = ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
     const yArr = [5, 20, 36, 10, 10, 20]
-    let initEcharts;
-    initEcharts = () => {
-        const myChart = echarts.init(chartRef.current);
+    const initOrUpdateEcharts = () => {
+        let myChart = echarts.getInstanceByDom(chartRef.current);
+        if (!myChart) {
+            myChart = echarts.init(chartRef.current);
+        }
         myChart.setOption({
             title: {
                 text: 'React-Echarts'
@@ -25,13 +28,24 @@ const HotSearchRank = () => {
         });
     };
 
+    const handleResize = () => {
+        let chartInstance = echarts.getInstanceByDom(chartRef.current);
+        chartInstance.resize();
+    };
+
     useEffect(() => {
-        initEcharts();
+        initOrUpdateEcharts();
+        window.addEventListener("resize", handleResize);
     });
 
     return (
         <div>
-            <div style={{width: "90%", height: "300px"}} ref={chartRef}/>
+            <div style={{
+                width: "90%",
+                height: 300,
+                maxHeight: 500,
+                margin: "auto",
+            }} ref={chartRef}/>
         </div>
     );
 };
