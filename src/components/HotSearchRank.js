@@ -22,7 +22,7 @@ const HotSearchRank = (props) => {
             yAxis: {},
             series: [{
                 name: '销量',
-                type: 'bar',
+                type: 'line',
                 data: yArr,
             }],
         });
