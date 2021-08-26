@@ -3,9 +3,6 @@ import * as echarts from 'echarts';
 
 const HotSearchRank = (props) => {
     const chartRef = useRef(null);
-
-    const xArr = ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-    const yArr = [5, 20, 36, 10, 10, 20]
     const initOrUpdateEcharts = () => {
         let myChart = echarts.getInstanceByDom(chartRef.current);
         if (!myChart) {
@@ -13,29 +10,57 @@ const HotSearchRank = (props) => {
         }
         myChart.setOption({
             title: {
-                text: 'React-Echarts'
+                text: '排行榜趋势'
             },
-            tooltips: {},
+            tooltips: {
+                trigger: 'axis',
+            },
+            dataset: {
+                source: props.source,
+            },
             xAxis: {
-                data: xArr,
+                type: 'time',
+                position: 'top',
+                axisPointer: {
+                    label: {
+                        show: true,
+                    },
+                },
             },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'line',
-                data: yArr,
-            }],
+            yAxis: {
+                position: 'left',
+                inverse: true,
+            },
+            series: [
+                {
+                    type: 'line',
+                    encode: {
+                        x: 'time',
+                        y: 'rank',
+                    },
+                    label: {
+                        show: true,
+                        position: 'bottom',
+                    },
+                },
+            ],
         });
     };
 
     const handleResize = () => {
-        let chartInstance = echarts.getInstanceByDom(chartRef.current);
-        chartInstance.resize();
+        let myChart = echarts.getInstanceByDom(chartRef.current);
+        if (!myChart) {
+            myChart = echarts.init(chartRef.current);
+        }
+        myChart.resize();
     };
 
     useEffect(() => {
         initOrUpdateEcharts();
         window.addEventListener("resize", handleResize);
+        return function cleanup() {
+            window.removeEventListener("resize", handleResize);
+        }
     });
 
     return (

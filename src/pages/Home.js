@@ -1,27 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import GetHotSearchesByDuration from "../api/hot-search";
+import {GetHotSearchesByDuration} from "../api/hot-search";
 import HotSearch from '../components/HotSearch';
-import {BackTop} from 'antd';
+import {BackTop, message} from 'antd';
 
 const Home = () => {
     const [hotSearchData, setHotSearchData] = useState();
     const handleGetCurrentHotSearch = () => {
-        const start = ""
-        const stop = ""
+        const start = "";
+        const stop = "";
         GetHotSearchesByDuration(start, stop)
             .then((res) => {
-                console.log(res);
                 if (res.status !== 200) {
-                    alert("获取数据错误");
-                    return
+                    message.error("获取数据失败").then(r => {
+                        console.log(r);
+                    });
                 }
-                const {code, data} = res.data;
+                const {code, data, msg} = res.data;
                 const {searches} = data;
                 if (code !== 2000) {
-                    alert("获取数据错误");
-                    return;
+                    message.error(msg).then(r => {
+                        console.log(r);
+                    });
                 }
-                setHotSearchData(searches)
+                setHotSearchData(searches);
             })
             .catch((err) => {
                 console.log(err);

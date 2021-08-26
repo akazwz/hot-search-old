@@ -10,5 +10,14 @@ const GetHotSearchesByDuration = (start, stop) => {
     })
 }
 
-export default GetHotSearchesByDuration;
+const GetHotSearchesByContent = (content, start, stop) => {
+    return axios.get(baseUrl + "/hot-searches/content/" + content, {
+        params: {
+            start: start,
+            stop: stop
+        },
+    })
+};
+
+export {GetHotSearchesByDuration, GetHotSearchesByContent};
 
