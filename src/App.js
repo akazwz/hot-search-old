@@ -6,6 +6,7 @@ import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter';
 import './style/hot-search.less'
 import HistoryHotSearches from './pages/HistoryHotSearches';
+import HotSearchData from "./pages/HotSearchData";
 
 const {Header, Footer, Content} = Layout;
 
@@ -20,7 +21,7 @@ function App() {
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/history-hot-searches" component={HistoryHotSearches}/>
-                        <Route exact path="/hot-search-data" component={HistoryHotSearches}/>
+                        <Route exact path="/hot-search-data" component={HotSearchData}/>
                     </Switch>
                 </Content>
                 <Footer>

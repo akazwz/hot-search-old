@@ -1,10 +1,10 @@
 import React from 'react';
-import {Empty} from 'antd';
+import HotSearchRank from '../components/HotSearchRank';
 
 const HotSearchData = () => {
     return (
         <div>
-            <Empty/>
+            <HotSearchRank/>
         </div>
     );
 };
