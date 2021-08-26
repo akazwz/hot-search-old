@@ -21,7 +21,8 @@ function App() {
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/history-hot-searches" component={HistoryHotSearches}/>
-                        <Route exact path="/hot-search-data" component={HotSearchData}/>
+                        <Route exact path="/hot-search-data/:content" component={HotSearchData}/>
+                        <Route exact path="/hot-search-data/" component={HotSearchData}/>
                     </Switch>
                 </Content>
                 <Footer>

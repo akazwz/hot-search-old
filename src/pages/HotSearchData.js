@@ -1,15 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {message} from 'antd';
+import {message, Input, Divider, Col, Row} from 'antd';
 import HotSearchRank from '../components/HotSearchRank';
+import HotSearchHot from '../components/HotSearchHot';
 import {GetHotSearchesByContent} from "../api/hot-search";
+import {useParams} from "react-router-dom";
 
 const HotSearchData = () => {
-    const content = "孟晚舟被加拿大非法拘押1000天";
     const start = "";
     const stop = "";
+    const [showChart, setShowChart] = useState(false);
+    let {content} = useParams();
     const defaultDataset = [['time', 'rank', 'hot']];
+
     const [hotSearchesDataset, setHotSearchesDataset] = useState(defaultDataset);
     const [change, SetChange] = useState(false);
+
+    useEffect(() => {
+        if (!content) {
+            setShowChart(false);
+        } else {
+            getHotSearches(content, start, stop);
+            setShowChart(true);
+        }
+    }, [content]);
+
+
     const getHotSearches = (content, start, stop) => {
         GetHotSearchesByContent(content, start, stop)
             .then((res) => {
@@ -42,12 +57,28 @@ const HotSearchData = () => {
             console.log(err);
         });
     }
-    useEffect(() => {
-        getHotSearches(content, start, stop);
-    }, [change])
+
+    const {Search} = Input;
+    const onSearch = value => console.log(value);
     return (
         <div>
-            <HotSearchRank source={hotSearchesDataset}/>
+            <Divider/>
+
+            <Row gutter={16} className="search-input-box">
+                <Col className="gutter-row" span={24}>
+                    <Search
+                        placeholder={content}
+                        allowClear
+                        enterButton
+                        size="large"
+                        onSearch={onSearch}
+                        className="search-input"
+                    />
+                </Col>
+            </Row>
+            <Divider/>
+            {showChart ? <HotSearchRank source={hotSearchesDataset}/> : null}
+            {showChart ? <HotSearchHot source={hotSearchesDataset}/> : null}
         </div>
     );
 };

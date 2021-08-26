@@ -1,5 +1,6 @@
 import React from 'react';
 import {Avatar, List} from 'antd';
+import {Link} from 'react-router-dom'
 import '../style/hot-search.less'
 
 const HotSearch = (props) => {
@@ -15,9 +16,9 @@ const HotSearch = (props) => {
                             <List.Item>
                                 <List.Item.Meta
                                     avatar={<Avatar>{rank}</Avatar>}
-                                    title={<a href="https://ant.design"><span
+                                    title={<Link to={"/hot-search-data/" + content}><span
                                         className="content-span">{content}</span>&nbsp;<span
-                                        className="hot-span">{hot}</span></a>}
+                                        className="hot-span">{hot}</span></Link>}
                                     description={topic_lead}
                                 />
                             </List.Item>

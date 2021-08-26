@@ -4,7 +4,7 @@ import {Empty} from 'antd';
 const HistoryHotSearches = () => {
     return (
         <div>
-            <Empty/>
+            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>
         </div>
     );
 };
