@@ -13,7 +13,7 @@ const HotSearchData = () => {
     const defaultDataset = [['time', 'rank', 'hot']];
 
     const [hotSearchesDataset, setHotSearchesDataset] = useState(defaultDataset);
-    const [change, SetChange] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         if (!content) {
@@ -24,9 +24,8 @@ const HotSearchData = () => {
         }
     }, [content]);
 
-
-    const getHotSearches = (content, start, stop) => {
-        GetHotSearchesByContent(content, start, stop)
+    const getHotSearches = (cont, start, stop) => {
+        GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
                 if (res.status !== 200) {
                     message.error("获取数据失败").then(r => {
@@ -49,7 +48,6 @@ const HotSearchData = () => {
                     );
                 }
                 setHotSearchesDataset(defaultDataset);
-                SetChange(true);
             }).catch((err) => {
             message.error("获取数据失败").then(r => {
                 console.log(r);
@@ -58,12 +56,19 @@ const HotSearchData = () => {
         });
     }
 
+    const handleSearchOnInput = (e) => {
+        const value = e.target.value;
+        setSearchValue(value);
+    }
+
     const {Search} = Input;
-    const onSearch = value => console.log(value);
+    const onSearch = (value) => {
+        getHotSearches(value, start, stop);
+        message.info(value).then();
+    };
     return (
         <div>
             <Divider/>
-
             <Row gutter={16} className="search-input-box">
                 <Col className="gutter-row" span={24}>
                     <Search
@@ -73,6 +78,8 @@ const HotSearchData = () => {
                         size="large"
                         onSearch={onSearch}
                         className="search-input"
+                        value={searchValue}
+                        onInput={handleSearchOnInput}
                     />
                 </Col>
             </Row>
