@@ -23,6 +23,7 @@ const HotSearchData = () => {
             setSearchPlaceHolder("赵文卓不动热狗不敢动");
         } else {
             setSearchValue(content);
+            setSearchPlaceHolder("赵文卓不动热狗不敢动");
             getHotSearches(content, start, stop);
         }
     }, []);
