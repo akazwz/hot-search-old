@@ -6,23 +6,14 @@ import {GetHotSearchesByContent} from "../api/hot-search";
 import {useParams} from "react-router-dom";
 
 const HotSearchData = () => {
-    const start = "";
-    const stop = "";
+    const start = "2021-08-27-23-00";
+    const stop = "2021-08-27-23-30";
     const [showChart, setShowChart] = useState(false);
     let {content} = useParams();
     const defaultDataset = [['time', 'rank', 'hot']];
 
     const [hotSearchesDataset, setHotSearchesDataset] = useState(defaultDataset);
     const [searchValue, setSearchValue] = useState('');
-
-    useEffect(() => {
-        if (!content) {
-            setShowChart(false);
-        } else {
-            getHotSearches(content, start, stop);
-            setShowChart(true);
-        }
-    }, [content]);
 
     const getHotSearches = (cont, start, stop) => {
         GetHotSearchesByContent(cont, start, stop)
@@ -65,6 +56,7 @@ const HotSearchData = () => {
     const onSearch = (value) => {
         getHotSearches(value, start, stop);
         message.info(value).then();
+        setShowChart(true);
     };
     return (
         <div>
