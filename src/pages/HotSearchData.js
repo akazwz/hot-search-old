@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {message, Input, Divider, Col, Row,} from 'antd';
 import {ClearOutlined} from '@ant-design/icons';
 import HotSearchRank from '../components/HotSearchRank';
