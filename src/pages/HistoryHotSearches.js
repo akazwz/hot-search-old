@@ -14,7 +14,7 @@ const HistoryHotSearches = () => {
 
         const [showHotSearches, setShowHotSearches] = useState(false);
 
-        const [hotSearches, setHotSearches] = useState([]);
+        const [searches, setSearches] = useState([]);
 
         const handleStartDatePickerOnChange = (date, dateString) => {
             setStartDateStr(dateString);
@@ -37,7 +37,7 @@ const HistoryHotSearches = () => {
                 .then((res) => {
                     if (res.status === 200) {
                         setShowHotSearches(true);
-                        setHotSearches(res.data.data);
+                        setSearches(res.data.data);
                     }
                 })
                 .catch((err) => {
@@ -76,7 +76,7 @@ const HistoryHotSearches = () => {
                         </Button>
                     </Col>
                 </Row>
-                {showHotSearches ? <HotSearches hotSearches={hotSearches}/> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
+                {showHotSearches ? <HotSearches searches={searches}/> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
             </div>
         );
     }
