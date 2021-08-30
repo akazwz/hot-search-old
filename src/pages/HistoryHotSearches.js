@@ -14,6 +14,8 @@ const HistoryHotSearches = () => {
 
         const [showHotSearches, setShowHotSearches] = useState(false);
 
+        const [hotSearches, setHotSearches] = useState([]);
+
         const handleStartDatePickerOnChange = (date, dateString) => {
             setStartDateStr(dateString);
         }
@@ -33,9 +35,9 @@ const HistoryHotSearches = () => {
             const end = endDateStr + endTimeStr;
             GetHotSearchesByDuration(start, end)
                 .then((res) => {
-                    console.log(res.data);
                     if (res.status === 200) {
                         setShowHotSearches(true);
+                        setHotSearches(res.data.data);
                     }
                 })
                 .catch((err) => {
@@ -74,7 +76,7 @@ const HistoryHotSearches = () => {
                         </Button>
                     </Col>
                 </Row>
-                {showHotSearches ? <HotSearches/> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
+                {showHotSearches ? <HotSearches hotSearches={hotSearches}/> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
             </div>
         );
     }
