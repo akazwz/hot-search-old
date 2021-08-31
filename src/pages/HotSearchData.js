@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {message, Input, Divider, Col, Row,} from 'antd';
+import moment from 'moment';
+import {message, Input, Divider, Col, Row, Typography} from 'antd';
 import {ClearOutlined} from '@ant-design/icons';
 import HotSearchRank from '../components/HotSearchRank';
 import HotSearchHot from '../components/HotSearchHot';
 import {GetHotSearchesByContent} from "../api/hot-search";
 import {useParams} from "react-router-dom";
 
+const {Paragraph} = Typography;
+
 const HotSearchData = () => {
-    const start = "";
-    const stop = "";
+    const start = "2021-08-20-00-00";
+    moment.locale('zh-cn');
+    const stop = moment().format("YYYY-MM-DD-HH-mm");
     const [showChart, setShowChart] = useState(false);
     let {content} = useParams();
     const defaultDataset = [['time', 'rank', 'hot']];
@@ -70,8 +74,7 @@ const HotSearchData = () => {
     }
 
     const {Search} = Input;
-    const onSearch = (value, event) => {
-        console.log(event);
+    const onSearch = (value) => {
         if (searchValue === "") {
             setSearchValue(searchPlaceHolder);
             getHotSearches(searchPlaceHolder, start, stop);
@@ -99,7 +102,7 @@ const HotSearchData = () => {
                 </Col>
             </Row>
             {topicLead !== '' ? <Divider/> : null}
-            {topicLead !== '' ? <div>{topicLead}</div> : null}
+            {topicLead !== '' ? <Paragraph>{topicLead}</Paragraph> : null}
             {topicLead !== '' ? <Divider/> : null}
             {showChart ? <HotSearchRank source={hotSearchesDataset}/> : null}
             {showChart ? <HotSearchHot source={hotSearchesDataset}/> : null}
