@@ -97,7 +97,7 @@ const HotSearches = (props) => {
             </Row>
             <Row className="show-single-hot-search">
                 <Col span={24}>
-                    <Affix offsetTop={17}>
+                    <Affix offsetTop={10}>
                         <Tag icon={<ClockCircleOutlined/>}>
                             {dateTime}
                         </Tag>
