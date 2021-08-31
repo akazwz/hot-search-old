@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {GetHotSearchesByDuration} from "../api/hot-search";
 import HotSearch from '../components/HotSearch';
-import {BackTop, message} from 'antd';
+import {BackTop, Divider, message} from 'antd';
 
 // 主页,当前热搜
 const Home = () => {

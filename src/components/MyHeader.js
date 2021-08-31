@@ -1,22 +1,48 @@
-import React from 'react';
-import {Row, Col} from 'antd';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Tabs} from 'antd';
+import {
+    useRouteMatch,
+    useHistory,
+} from "react-router-dom";
 
-// 网页头部
+const {TabPane} = Tabs;
+
+
+// 网页头部, tab active
 const MyHeader = () => {
+    let history = useHistory();
+    let historyHotSearches = useRouteMatch("/history-hot-searches");
+    let hotSearchData = useRouteMatch("/hot-search-data");
+    const [activeKey, setActiveKey] = useState('/');
+
+    const handleTabsOnChange = (key) => {
+        setActiveKey(key);
+        history.push(key);
+    }
+    useEffect(() => {
+        if (historyHotSearches !== null) {
+            setActiveKey(historyHotSearches.path);
+        }
+        if (hotSearchData !== null) {
+            setActiveKey(hotSearchData.path);
+        }
+    }, [historyHotSearches, hotSearchData])
+
     return (
         <div className="header-link">
-            <Row gutter={16}>
-                <Col className="gutter-row" span={8}>
-                    <Link to="/">当前热搜</Link>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <Link to="/history-hot-searches">历史热搜</Link>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <Link to="/hot-search-data">热搜数据</Link>
-                </Col>
-            </Row>
+            <Tabs
+                activeKey={activeKey}
+                defaultActiveKey="/"
+                centered size="large"
+                tabBarGutter={70}
+                onChange={handleTabsOnChange}>
+                <TabPane tab="当前热搜" key="/">
+                </TabPane>
+                <TabPane tab="历史热搜" key="/history-hot-searches">
+                </TabPane>
+                <TabPane tab="热搜数据" key="/hot-search-data">
+                </TabPane>
+            </Tabs>
         </div>
     );
 };

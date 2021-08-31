@@ -1,40 +1,26 @@
 import React, {useState} from 'react';
-import {Empty, DatePicker, Space, TimePicker, Row, Col, Button, BackTop, message} from 'antd';
-import {ArrowRightOutlined} from '@ant-design/icons';
+import {Empty, DatePicker, Space, Row, Col, Button, BackTop, message, Divider} from 'antd';
+import 'moment/locale/zh-cn';
+import locale from 'antd/es/date-picker/locale/zh_CN';
 import HotSearches from '../components/HotSearches';
 import {GetHotSearchesByDuration} from '../api/hot-search';
+import moment from "moment";
 
+const {RangePicker} = DatePicker;
 // 历史热搜
 const HistoryHotSearches = () => {
-        const [startDateStr, setStartDateStr] = useState('');
-        const [startTimeStr, setStartTimeStr] = useState('-00-00');
-
-        const [endDateStr, setEndDateStr] = useState('');
-        const [endTimeStr, setEndTimeStr] = useState('-00-00');
-
-
         const [showHotSearches, setShowHotSearches] = useState(false);
-
         const [searches, setSearches] = useState([]);
+        const [startStr, setStartStr] = useState('');
+        const [endStr, setEndStr] = useState('');
 
-        const handleStartDatePickerOnChange = (date, dateString) => {
-            setStartDateStr(dateString);
-        }
-        const handleStartTimePickerOnChange = (time, timeString) => {
-            setStartTimeStr("-" + timeString.slice(0, 2) + "-" + timeString.slice(3, 5));
-        }
-
-        const handleEndDatePickerOnChange = (date, dateString) => {
-            setEndDateStr(dateString);
-        }
-        const handleEndTimePickerOnChange = (time, timeString) => {
-            setEndTimeStr("-" + timeString.slice(0, 2) + "-" + timeString.slice(3, 5));
+        const handleRangePickerOnChange = (value, dateStr) => {
+            setStartStr(dateStr[0].replace(' ', '-').replace(':', '-'));
+            setEndStr(dateStr[1].replace(' ', '-').replace(':', '-'));
         }
 
         const handleBtnStartToSearchOnClick = () => {
-            const start = startDateStr + startTimeStr;
-            const end = endDateStr + endTimeStr;
-            GetHotSearchesByDuration(start, end)
+            GetHotSearchesByDuration(startStr, endStr)
                 .then((res) => {
                     if (res.status === 200) {
                         setShowHotSearches(true);
@@ -49,38 +35,37 @@ const HistoryHotSearches = () => {
                 });
         };
 
+
+        const disabledDate = current => {
+            return current < moment("2021-08-25");
+        };
+
         return (
             <div>
                 <BackTop/>
                 <Row className="date-time-picker">
-                    <Col span={8}>
+                    <Col span={24}>
                         <Space direction="vertical">
-                            {"开始时间"}
-                            <DatePicker onChange={handleStartDatePickerOnChange}/>
-                            <TimePicker minuteStep={15} format="HH:mm" onChange={handleStartTimePickerOnChange}/>
-                        </Space>
-                    </Col>
-                    <Col span={8}>
-                        <ArrowRightOutlined/>
-                    </Col>
-                    <Col span={8}>
-                        <Space direction="vertical">
-                            {"结束时间"}
-                            <DatePicker onChange={handleEndDatePickerOnChange}/>
-                            <TimePicker minuteStep={15} format="HH:mm" onChange={handleEndTimePickerOnChange}/>
+                            <RangePicker
+                                locale={locale}
+                                showTime={{format: 'HH:mm', minuteStep: 15}}
+                                format="YYYY-MM-DD HH:mm"
+                                disabledDate={disabledDate}
+                                onChange={handleRangePickerOnChange}/>
                         </Space>
                     </Col>
                 </Row>
+                <Divider/>
                 <Row className="date-time-picker">
                     <Col span={24}>
                         <Button
-                            disabled={startDateStr.length !== 10 || endDateStr.length !== 10}
                             onClick={handleBtnStartToSearchOnClick}
                         >
                             开始搜索
                         </Button>
                     </Col>
                 </Row>
+                <Divider/>
                 {showHotSearches ? <HotSearches searches={searches}/> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
             </div>
         );
