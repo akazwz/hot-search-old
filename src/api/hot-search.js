@@ -1,5 +1,5 @@
 const axios = require('axios');
-const baseUrl = 'http://192.168.31.193:8000';
+const baseUrl = 'http://localhost:8000';
 
 // 根据日期区间获取热搜
 const GetHotSearchesByDuration = (start, stop) => {
@@ -8,8 +8,8 @@ const GetHotSearchesByDuration = (start, stop) => {
             start: start,
             stop: stop
         },
-    })
-}
+    });
+};
 
 // 根据内容获取热搜
 const GetHotSearchesByContent = (content, start, stop) => {
@@ -18,7 +18,7 @@ const GetHotSearchesByContent = (content, start, stop) => {
             start: start,
             stop: stop
         },
-    })
+    });
 };
 
 export {GetHotSearchesByDuration, GetHotSearchesByContent};

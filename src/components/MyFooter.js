@@ -12,7 +12,6 @@ const MyFooter = () => {
                 <Col className="gutter-row" span={12}>
                     <a href="https://github.com/akazwz/weibo-hot-search">Weibo Hot Search</a>
                 </Col>
-
             </Row>
         </div>
     );

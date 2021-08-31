@@ -3,9 +3,9 @@ import {Tag, Row, Col, Affix, Button, Slider} from 'antd';
 import {
     ClockCircleOutlined,
     LeftOutlined,
-    RightOutlined
+    RightOutlined,
 } from '@ant-design/icons';
-import HotSearch from "./HotSearch";
+import HotSearch from './HotSearch';
 
 // 多个热搜展示,可以按钮切换热搜,可以拖动时间节点选择热搜
 const HotSearches = (props) => {
@@ -25,7 +25,7 @@ const HotSearches = (props) => {
             setDateTime(time);
             setMax(propSearches.length - 1);
         }
-    }, [index, propSearches])
+    }, [index, propSearches]);
 
     const handleBtnNextOnClick = () => {
         if (propSearches.length > 0) {
@@ -71,7 +71,7 @@ const HotSearches = (props) => {
             return time;
         }
         return null;
-    }
+    };
 
     const handleSlideValueChange = (value) => {
         setSlideValue(value);

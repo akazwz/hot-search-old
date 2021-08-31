@@ -4,16 +4,16 @@ import {message, Input, Divider, Col, Row, Typography} from 'antd';
 import {ClearOutlined} from '@ant-design/icons';
 import HotSearchRank from '../components/HotSearchRank';
 import HotSearchHot from '../components/HotSearchHot';
-import {GetHotSearchesByContent} from "../api/hot-search";
-import {useParams} from "react-router-dom";
+import {GetHotSearchesByContent} from '../api/hot-search';
+import {useParams} from 'react-router-dom';
 
 const {Paragraph} = Typography;
 
 // 热搜数据
 const HotSearchData = () => {
-    const start = "2021-08-20-00-00";
+    const start = '2021-08-20-00-00';
     moment.locale('zh-cn');
-    const stop = moment().format("YYYY-MM-DD-HH-mm");
+    const stop = moment().format('YYYY-MM-DD-HH-mm');
     const [showChart, setShowChart] = useState(false);
     let {content} = useParams();
     const defaultDataset = [['time', 'rank', 'hot']];
@@ -25,10 +25,10 @@ const HotSearchData = () => {
 
     useEffect(() => {
         if (!content) {
-            setSearchPlaceHolder("赵文卓不动热狗不敢动");
+            setSearchPlaceHolder('赵文卓不动热狗不敢动');
         } else {
             setSearchValue(content);
-            setSearchPlaceHolder("赵文卓不动热狗不敢动");
+            setSearchPlaceHolder('赵文卓不动热狗不敢动');
             getHotSearches(content, start, stop);
         }
     }, []);
@@ -37,7 +37,7 @@ const HotSearchData = () => {
         GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
                 if (res.status !== 200) {
-                    message.error("获取数据失败").then();
+                    message.error('获取数据失败').then();
                 }
                 const {code, data, msg} = res.data
                 if (code !== 2000) {
@@ -58,7 +58,7 @@ const HotSearchData = () => {
                 setHotSearchesDataset(defaultDataset);
                 setShowChart(true);
             }).catch((err) => {
-            message.error("获取数据失败").then();
+            message.error('获取数据失败').then();
             console.log(err);
         });
     }
@@ -70,7 +70,7 @@ const HotSearchData = () => {
 
     const {Search} = Input;
     const onSearch = (value) => {
-        if (searchValue === "") {
+        if (searchValue === '') {
             setSearchValue(searchPlaceHolder);
             getHotSearches(searchPlaceHolder, start, stop);
         } else {

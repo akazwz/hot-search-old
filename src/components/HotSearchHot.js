@@ -11,7 +11,7 @@ const HotSearchHot = (props) => {
         }
         myChart.setOption({
             title: {
-                text: '热度趋势'
+                text: '热度趋势',
             },
             tooltips: {
                 trigger: 'axis',
@@ -57,19 +57,19 @@ const HotSearchHot = (props) => {
 
     useEffect(() => {
         initOrUpdateEcharts();
-        window.addEventListener("resize", handleResize);
+        window.addEventListener('resize', handleResize);
         return function cleanup() {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener('resize', handleResize);
         }
     });
 
     return (
         <div>
             <div style={{
-                width: "90%",
+                width: '90%',
                 height: 300,
                 maxHeight: 500,
-                margin: "auto",
+                margin: 'auto',
             }} ref={hotChartRef}/>
         </div>
     );

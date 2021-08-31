@@ -3,12 +3,11 @@ import {Tabs} from 'antd';
 import {
     useRouteMatch,
     useHistory,
-} from "react-router-dom";
+} from 'react-router-dom';
 
 const {TabPane} = Tabs;
 
-
-// 网页头部, tab active
+// 网页头部, 路由
 const MyHeader = () => {
     let history = useHistory();
     let historyHotSearches = useRouteMatch("/history-hot-searches");
@@ -26,7 +25,7 @@ const MyHeader = () => {
         if (hotSearchData !== null) {
             setActiveKey(hotSearchData.path);
         }
-    }, [historyHotSearches, hotSearchData])
+    }, [historyHotSearches, hotSearchData]);
 
     return (
         <div className="header-link">
