@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Empty, DatePicker, Space, TimePicker, Row, Col, Button} from 'antd';
+import {Empty, DatePicker, Space, TimePicker, Row, Col, Button, BackTop} from 'antd';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import HotSearches from '../components/HotSearches';
 import {GetHotSearchesByDuration} from "../api/hot-search";
@@ -47,6 +47,7 @@ const HistoryHotSearches = () => {
 
         return (
             <div>
+                <BackTop/>
                 <Row className="date-time-picker">
                     <Col span={8}>
                         <Space direction="vertical">
