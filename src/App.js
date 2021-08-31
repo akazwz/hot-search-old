@@ -17,7 +17,7 @@ function App() {
                 <Header id="header-custom">
                     <MyHeader/>
                 </Header>
-                <Content>
+                <Content id="content-custom">
                     <Switch>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/history-hot-searches" component={HistoryHotSearches}/>
@@ -25,7 +25,7 @@ function App() {
                         <Route exact path="/hot-search-data/" component={HotSearchData}/>
                     </Switch>
                 </Content>
-                <Footer>
+                <Footer id="footer-custom">
                     <MyFooter/>
                 </Footer>
             </Layout>
