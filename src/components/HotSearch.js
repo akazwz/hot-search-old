@@ -3,6 +3,7 @@ import {Avatar, List} from 'antd';
 import {Link} from 'react-router-dom'
 import '../style/hot-search.less'
 
+// 单次热搜的展示,为50个热搜的列表
 const HotSearch = (props) => {
     return (
         <div>

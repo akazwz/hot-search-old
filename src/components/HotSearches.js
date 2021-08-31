@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import HotSearch from "./HotSearch";
 
+// 多个热搜展示,可以按钮切换热搜,可以拖动时间节点选择热搜
 const HotSearches = (props) => {
     const propSearches = props.searches;
     const [hotSearch, setHotSearch] = useState([]);

@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from 'echarts';
 
+// 热搜排名的趋势图
 const HotSearchRank = (props) => {
     const chartRef = useRef(null);
     const initOrUpdateEcharts = () => {

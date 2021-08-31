@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from 'echarts';
 
+// 热搜热度的趋势图
 const HotSearchHot = (props) => {
     const hotChartRef = useRef(null);
     const initOrUpdateEcharts = () => {

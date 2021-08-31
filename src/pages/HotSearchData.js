@@ -9,6 +9,7 @@ import {useParams} from "react-router-dom";
 
 const {Paragraph} = Typography;
 
+// 热搜数据
 const HotSearchData = () => {
     const start = "2021-08-20-00-00";
     moment.locale('zh-cn');
@@ -36,15 +37,11 @@ const HotSearchData = () => {
         GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
                 if (res.status !== 200) {
-                    message.error("获取数据失败").then(r => {
-                        console.log(r);
-                    });
+                    message.error("获取数据失败").then();
                 }
                 const {code, data, msg} = res.data
                 if (code !== 2000) {
-                    message.error(msg).then(r => {
-                        console.log(r);
-                    });
+                    message.error(msg).then();
                 }
                 const {searches} = data[0];
                 const {topic_lead, link} = searches[0];
@@ -61,9 +58,7 @@ const HotSearchData = () => {
                 setHotSearchesDataset(defaultDataset);
                 setShowChart(true);
             }).catch((err) => {
-            message.error("获取数据失败").then(r => {
-                console.log(r);
-            });
+            message.error("获取数据失败").then();
             console.log(err);
         });
     }

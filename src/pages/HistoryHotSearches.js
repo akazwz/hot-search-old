@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import {Empty, DatePicker, Space, TimePicker, Row, Col, Button, BackTop} from 'antd';
+import {Empty, DatePicker, Space, TimePicker, Row, Col, Button, BackTop, message} from 'antd';
 import {ArrowRightOutlined} from '@ant-design/icons';
 import HotSearches from '../components/HotSearches';
-import {GetHotSearchesByDuration} from "../api/hot-search";
+import {GetHotSearchesByDuration} from '../api/hot-search';
 
+// 历史热搜
 const HistoryHotSearches = () => {
         const [startDateStr, setStartDateStr] = useState('');
         const [startTimeStr, setStartTimeStr] = useState('-00-00');
@@ -38,10 +39,13 @@ const HistoryHotSearches = () => {
                     if (res.status === 200) {
                         setShowHotSearches(true);
                         setSearches(res.data.data);
+                    } else {
+                        message.error("获取失败").then();
                     }
                 })
                 .catch((err) => {
                     console.log(err);
+                    message.error("获取失败").then();
                 });
         };
 
