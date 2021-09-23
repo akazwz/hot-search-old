@@ -1,5 +1,5 @@
 const axios = require('axios');
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'https://hs.hellozwz.com';
 
 // 根据日期区间获取热搜
 const GetHotSearchesByDuration = (start, stop) => {
