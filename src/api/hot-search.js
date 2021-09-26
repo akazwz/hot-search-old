@@ -1,5 +1,5 @@
 const axios = require('axios');
-const baseUrl = 'http://localhost:8000';
+const baseUrl = 'https://hs.hellozwz.com';
 
 // 获取当前热搜
 const GetCurrentHotSearch = () => {
