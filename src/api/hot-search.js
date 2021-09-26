@@ -1,6 +1,11 @@
 const axios = require('axios');
 const baseUrl = 'http://localhost:8000';
 
+// 获取当前热搜
+const GetCurrentHotSearch = () => {
+    return axios.get(baseUrl + "/hot-searches/current");
+};
+
 // 根据日期区间获取热搜
 const GetHotSearchesByDuration = (start, stop) => {
     return axios.get(baseUrl + "/hot-searches", {
@@ -21,5 +26,5 @@ const GetHotSearchesByContent = (content, start, stop) => {
     });
 };
 
-export {GetHotSearchesByDuration, GetHotSearchesByContent};
+export { GetCurrentHotSearch, GetHotSearchesByDuration, GetHotSearchesByContent };
 
