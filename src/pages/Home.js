@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { GetCurrentHotSearch, GetHotSearchesByDuration } from '../api/hot-search';
+import { GetCurrentHotSearch } from '../api/hot-search';
 import HotSearch from '../components/HotSearch';
 import { BackTop, message } from 'antd';
+import WordCloud from '../components/WordCloud';
 
 // 主页,当前热搜
 const Home = () => {
     const [hotSearchData, setHotSearchData] = useState();
+    const [wordData, setWordData] = useState([]);
     const handleGetCurrentHotSearch = () => {
         GetCurrentHotSearch()
             .then((res) => {
@@ -14,6 +16,15 @@ const Home = () => {
                 }
                 const {code, data, msg} = res.data;
                 const {searches} = data;
+                const wordArr = searches.slice(0, 20)
+                console.log("word:", wordArr)
+                let wordDataArr = []
+                wordArr.map((search) => {
+                    const {content, hot} = search;
+                    wordDataArr.push({name: content, value: hot})
+                    return "";
+                });
+                setWordData(wordDataArr)
                 if ( code !== 2000 ) {
                     message.error(msg).then();
                 }
@@ -32,6 +43,7 @@ const Home = () => {
     return (
         <div>
             <BackTop/>
+            <WordCloud data={wordData}/>
             <HotSearch hotSearch={hotSearchData}/>
         </div>
     );
