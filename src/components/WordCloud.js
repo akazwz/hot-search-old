@@ -5,7 +5,6 @@ import 'echarts-wordcloud';
 // 热搜词云
 const WordCloud = (props) => {
     const hotChartRef = useRef(null);
-    console.log(props.data)
     const initOrUpdateEcharts = () => {
         let myChart = echarts.getInstanceByDom(hotChartRef.current);
         if ( !myChart ) {

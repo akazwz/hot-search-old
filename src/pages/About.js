@@ -2,18 +2,24 @@ import React, { useEffect, useState } from 'react';
 import {GithubOutlined} from '@ant-design/icons';
 import GitHubCalendar from "../components/GitHubCalendar";
 import { GetGithubCalendarByUsername } from "../api/hot-search";
+import { message } from "antd";
 
 const About = () => {
     const [total, setTotal] = useState(0);
     const [data, setData] = useState([]);
     useEffect(() => {
         GetGithubCalendarByUsername("akazwz").then((res) => {
-            console.log(res);
+            // http status
             if (res.status !== 200) {
-                alert("获取数据失败");
-                return
+                message.error("获取数据失败").then();
+                return;
             }
             const {code, msg, data} = res.data;
+            // code
+            if (code !== 2000) {
+                message.error(msg).then();
+                return;
+            }
             const {total, contributions} = data;
             setTotal(total);
             let dataLater = [];
@@ -23,7 +29,7 @@ const About = () => {
             }
             setData(dataLater);
         }).catch((err) => {
-            console.log(err);
+            message.error("获取数据失败" + err).then();
         });
     }, []);
 

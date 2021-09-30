@@ -11,10 +11,14 @@ const Home = () => {
     const handleGetCurrentHotSearch = () => {
         GetCurrentHotSearch()
             .then((res) => {
-                if ( res.status !== 200 ) {
+                if (res.status !== 200) {
                     message.error('获取数据失败').then();
                 }
                 const {code, data, msg} = res.data;
+                if (code !== 2000) {
+                    message.error(msg).then();
+                    return;
+                }
                 const {searches} = data;
                 const wordArr = searches.slice(0, 20)
                 let wordDataArr = []
@@ -24,14 +28,10 @@ const Home = () => {
                     return "";
                 });
                 setWordData(wordDataArr)
-                if ( code !== 2000 ) {
-                    message.error(msg).then();
-                }
                 setHotSearchData(searches);
             })
             .catch((err) => {
-                console.log(err);
-                message.error('获取数据失败').then();
+                message.error('获取数据失败' + err).then();
             })
     };
 
@@ -41,9 +41,9 @@ const Home = () => {
 
     return (
         <div>
-            <BackTop/>
-            <WordCloud data={wordData}/>
-            <HotSearch hotSearch={hotSearchData}/>
+            <BackTop />
+            <WordCloud data={wordData} />
+            <HotSearch hotSearch={hotSearchData} />
         </div>
     );
 };
