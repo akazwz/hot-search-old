@@ -1,22 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {Tabs} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Menu, Row, Col } from 'antd';
 import {
     useRouteMatch,
     useHistory,
 } from 'react-router-dom';
 
-const {TabPane} = Tabs;
-
 // 网页头部, 路由
 const MyHeader = () => {
     let history = useHistory();
-    let historyHotSearches = useRouteMatch("/history-hot-searches");
+    let historyHotSearches = useRouteMatch("/about");
     let hotSearchData = useRouteMatch("/hot-search-data");
     const [activeKey, setActiveKey] = useState('/');
 
-    const handleTabsOnChange = (key) => {
-        setActiveKey(key);
-        history.push(key);
+    const handleMenuOnClick = (obj) => {
+        setActiveKey(obj.key);
+        history.push(obj.key);
     }
     useEffect(() => {
         if (historyHotSearches !== null) {
@@ -29,19 +27,14 @@ const MyHeader = () => {
 
     return (
         <div className="header-link">
-            <Tabs
-                activeKey={activeKey}
-                defaultActiveKey="/"
-                centered size="large"
-                tabBarGutter={70}
-                onChange={handleTabsOnChange}>
-                <TabPane tab="当前热搜" key="/">
-                </TabPane>
-                <TabPane tab="历史热搜" key="/history-hot-searches">
-                </TabPane>
-                <TabPane tab="热搜数据" key="/hot-search-data">
-                </TabPane>
-            </Tabs>
+            <Menu className="menu" onClick={handleMenuOnClick} selectedKeys={[activeKey]} mode="horizontal">
+                <Menu.Item key="/">
+                    当前热搜
+                </Menu.Item>
+                <Menu.Item key="/about">
+                    关于作者
+                </Menu.Item>
+            </Menu>
         </div>
     );
 };

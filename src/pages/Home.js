@@ -17,7 +17,6 @@ const Home = () => {
                 const {code, data, msg} = res.data;
                 const {searches} = data;
                 const wordArr = searches.slice(0, 20)
-                console.log("word:", wordArr)
                 let wordDataArr = []
                 wordArr.map((search) => {
                     const {content, hot} = search;

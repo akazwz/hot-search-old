@@ -26,5 +26,11 @@ const GetHotSearchesByContent = (content, start, stop) => {
     });
 };
 
-export { GetCurrentHotSearch, GetHotSearchesByDuration, GetHotSearchesByContent };
+// 根据内容获取热搜
+const GetGithubCalendarByUsername = (username) => {
+    return axios.get("https://github.hellozwz.com/" + username);
+};
+
+
+export { GetCurrentHotSearch, GetHotSearchesByDuration, GetHotSearchesByContent, GetGithubCalendarByUsername };
 
