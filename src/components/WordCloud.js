@@ -7,8 +7,8 @@ const WordCloud = (props) => {
     const hotChartRef = useRef(null);
     const initOrUpdateEcharts = () => {
         let myChart = echarts.getInstanceByDom(hotChartRef.current);
-        if ( !myChart ) {
-            myChart = echarts.init(hotChartRef.current);
+        if (!myChart) {
+            myChart = echarts.init(hotChartRef.current, null, {renderer: 'svg'});
         }
         myChart.on('click', (param) => {
         });
@@ -25,7 +25,7 @@ const WordCloud = (props) => {
                 right: null,
                 bottom: null,
                 sizeRange: [15, 50],
-                rotationRange: [- 90, 90],
+                rotationRange: [-90, 90],
                 rotationStep: 45,
                 gridSize: 8,
                 drawOutOfBound: false,
@@ -33,11 +33,11 @@ const WordCloud = (props) => {
                 textStyle: {
                     fontFamily: 'sans-serif',
                     fontWeight: 'bold',
-                    color: function() {
+                    color: function () {
                         return 'rgb(' + [
-                            Math.round(Math.random()*160),
-                            Math.round(Math.random()*160),
-                            Math.round(Math.random()*160)
+                            Math.round(Math.random() * 160),
+                            Math.round(Math.random() * 160),
+                            Math.round(Math.random() * 160)
                         ].join(',') + ')';
                     }
                 },
@@ -55,7 +55,7 @@ const WordCloud = (props) => {
 
     const handleResize = () => {
         let myChart = echarts.getInstanceByDom(hotChartRef.current);
-        if ( !myChart ) {
+        if (!myChart) {
             myChart = echarts.init(hotChartRef.current);
         }
         myChart.resize();
@@ -76,7 +76,7 @@ const WordCloud = (props) => {
                 height: 350,
                 maxHeight: 600,
                 margin: 'auto',
-            }} ref={hotChartRef}/>
+            }} ref={hotChartRef} />
         </div>
     );
 };

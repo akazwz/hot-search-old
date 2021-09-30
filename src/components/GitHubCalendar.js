@@ -6,7 +6,7 @@ const GitHubCalendar = (props) => {
     const initOrUpdateEcharts = () => {
         let myChart = echarts.getInstanceByDom(calendar.current);
         if (!myChart) {
-            myChart = echarts.init(calendar.current);
+            myChart = echarts.init(calendar.current, null, {renderer: 'svg'});
         }
         myChart.on('click', (param) => {
         });

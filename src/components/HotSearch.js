@@ -17,7 +17,7 @@ const HotSearch = (props) => {
                         <List.Item>
                             <List.Item.Meta
                                 avatar={<Avatar>{rank}</Avatar>}
-                                title={<Link to={"/hot-search-data/" + contentUrl}><span
+                                title={<Link to={"#" + contentUrl}><span
                                     className="content-span">{content}</span>&nbsp;<span
                                     className="hot-span">{hot}</span></Link>}
                                 description={topic_lead}
