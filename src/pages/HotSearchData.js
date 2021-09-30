@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+/*import React, {useEffect, useState} from 'react';
 import moment from 'moment';
 import {message, Input, Divider, Col, Row, Typography} from 'antd';
 import {ClearOutlined} from '@ant-design/icons';
@@ -7,11 +7,11 @@ import HotSearchHot from '../components/HotSearchHot';
 import {GetHotSearchesByContent} from '../api/hot-search';
 import {useParams} from 'react-router-dom';
 
-const {Paragraph} = Typography;
+const {Paragraph} = Typography;*/
 
 // 热搜数据
 const HotSearchData = () => {
-    const start = '2021-08-20-00-00';
+    /*const start = '2021-08-20-00-00';
     moment.locale('zh-cn');
     const stop = moment().format('YYYY-MM-DD-HH-mm');
     const [showChart, setShowChart] = useState(false);
@@ -102,7 +102,7 @@ const HotSearchData = () => {
             {showChart ? <HotSearchRank source={hotSearchesDataset}/> : null}
             {showChart ? <HotSearchHot source={hotSearchesDataset}/> : null}
         </div>
-    );
+    );*/
 };
 
 export default HotSearchData;

@@ -8,6 +8,7 @@ import './style/hot-search.less'
 import HistoryHotSearches from './pages/HistoryHotSearches';
 import HotSearchData from './pages/HotSearchData';
 import About from './pages/About';
+import 'default-passive-events';
 
 const {Header, Footer, Content} = Layout;
 

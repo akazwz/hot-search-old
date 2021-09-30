@@ -45,9 +45,8 @@ const About = () => {
                     fontSize: 30,
                 }}/>
             </a>
-
             <br/>
-            <text>{total} contributions in 2021</text>
+            <h3>{total} contributions in 2021</h3>
             <GitHubCalendar data={data}/>
         </div>
     );
