@@ -44,8 +44,7 @@ const HotSearchData = () => {
                     message.error(msg).then();
                 }
                 const {searches} = data[0];
-                const {topic_lead, link} = searches[0];
-                setTopicLead(topic_lead);
+                const {link} = searches[0];
                 for (let i = 0; i < data.length; i++) {
                     const hotSearch = data[i];
                     const {time, searches} = hotSearch;
