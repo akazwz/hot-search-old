@@ -1,30 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import {message, Input, Divider, Col, Row, Typography} from 'antd';
-import {ClearOutlined} from '@ant-design/icons';
+import { message, Input, Divider, Col, Row } from 'antd';
+import { ClearOutlined } from '@ant-design/icons';
 import HotSearchRank from '../components/HotSearchRank';
 import HotSearchHot from '../components/HotSearchHot';
-import {GetHotSearchesByContent} from '../api/hot-search';
-import {useParams} from 'react-router-dom';
-
-const {Paragraph} = Typography;
+import { GetHotSearchesByContent } from '../api/hot-search';
+import { useParams } from 'react-router-dom';
 
 // 热搜数据
 const HotSearchData = () => {
-    const start = '2021-08-20-00-00';
+    const start = '2021-10-01-00-00';
     moment.locale('zh-cn');
     const stop = moment().format('YYYY-MM-DD-HH-mm');
     const [showChart, setShowChart] = useState(false);
     let {content} = useParams();
     const defaultDataset = [['time', 'rank', 'hot']];
-
     const [hotSearchesDataset, setHotSearchesDataset] = useState(defaultDataset);
     const [searchValue, setSearchValue] = useState('');
-    const [topicLead, setTopicLead] = useState('');
     const [searchPlaceHolder, setSearchPlaceHolder] = useState('');
 
     useEffect(() => {
-        if (!content) {
+        if ( !content ) {
             setSearchPlaceHolder('赵文卓不动热狗不敢动');
         } else {
             setSearchValue(content);
@@ -36,16 +32,14 @@ const HotSearchData = () => {
     const getHotSearches = (cont, start, stop) => {
         GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
-                if (res.status !== 200) {
+                if ( res.status !== 200 ) {
                     message.error('获取数据失败').then();
                 }
                 const {code, data, msg} = res.data
-                if (code !== 2000) {
+                if ( code !== 2000 ) {
                     message.error(msg).then();
                 }
-                const {searches} = data[0];
-                const {link} = searches[0];
-                for (let i = 0; i < data.length; i++) {
+                for ( let i = 0; i < data.length; i ++ ) {
                     const hotSearch = data[i];
                     const {time, searches} = hotSearch;
                     const singleSearch = searches[0];
@@ -57,8 +51,7 @@ const HotSearchData = () => {
                 setHotSearchesDataset(defaultDataset);
                 setShowChart(true);
             }).catch((err) => {
-            message.error('获取数据失败').then();
-            console.log(err);
+            message.error('获取数据失败' + err).then();
         });
     }
 
@@ -69,7 +62,7 @@ const HotSearchData = () => {
 
     const {Search} = Input;
     const onSearch = (value) => {
-        if (searchValue === '') {
+        if ( searchValue === '' ) {
             setSearchValue(searchPlaceHolder);
             getHotSearches(searchPlaceHolder, start, stop);
         } else {
@@ -79,25 +72,22 @@ const HotSearchData = () => {
     return (
         <div>
             <Divider/>
-            <Row gutter={16} className="search-input-box">
-                <Col className="gutter-row" span={24}>
+            <Row gutter={16} className='search-input-box'>
+                <Col className='gutter-row' span={24}>
                     <Search
                         placeholder={"大家都在搜：" + searchPlaceHolder}
                         enterButton
                         suffix={searchValue !== '' ? <ClearOutlined onClick={() => {
                             setSearchValue('');
                         }}/> : null}
-                        size="large"
+                        size='large'
                         onSearch={onSearch}
-                        className="search-input"
+                        className='search-input'
                         value={searchValue}
                         onInput={handleSearchOnInput}
                     />
                 </Col>
             </Row>
-            {topicLead !== '' ? <Divider/> : null}
-            {topicLead !== '' ? <Paragraph>{topicLead}</Paragraph> : null}
-            {topicLead !== '' ? <Divider/> : null}
             {showChart ? <HotSearchRank source={hotSearchesDataset}/> : null}
             {showChart ? <HotSearchHot source={hotSearchesDataset}/> : null}
         </div>
