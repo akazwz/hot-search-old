@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { message, Input, Divider, Col, Row } from 'antd';
+import { message, Input, Divider, Col, Row, Spin } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
 import HotSearchRank from '../components/HotSearchRank';
 import HotSearchHot from '../components/HotSearchHot';
@@ -13,6 +13,7 @@ const HotSearchData = () => {
     moment.locale('zh-cn');
     const stop = moment().format('YYYY-MM-DD-HH-mm');
     const [showChart, setShowChart] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
     let {content} = useParams();
     const defaultDataset = [['time', 'rank', 'hot']];
     const [hotSearchesDataset, setHotSearchesDataset] = useState(defaultDataset);
@@ -30,6 +31,7 @@ const HotSearchData = () => {
     }, []);
 
     const getHotSearches = (cont, start, stop) => {
+        setShowLoading(true);
         GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
                 if ( res.status !== 200 ) {
@@ -49,6 +51,7 @@ const HotSearchData = () => {
                     );
                 }
                 setHotSearchesDataset(defaultDataset);
+                setShowLoading(false);
                 setShowChart(true);
             }).catch((err) => {
             message.error('获取数据失败' + err).then();
@@ -62,6 +65,7 @@ const HotSearchData = () => {
 
     const {Search} = Input;
     const onSearch = (value) => {
+        setShowChart(false);
         if ( searchValue === '' ) {
             setSearchValue(searchPlaceHolder);
             getHotSearches(searchPlaceHolder, start, stop);
@@ -86,10 +90,14 @@ const HotSearchData = () => {
                         value={searchValue}
                         onInput={handleSearchOnInput}
                     />
+                    <Divider/>
+                </Col>
+                <Col className='gutter-row' span={24}>
+                    {showLoading ? <Spin size='large'/> : null}
+                    {showChart ? <HotSearchRank source={hotSearchesDataset}/> : null}
+                    {showChart ? <HotSearchHot source={hotSearchesDataset}/> : null}
                 </Col>
             </Row>
-            {showChart ? <HotSearchRank source={hotSearchesDataset}/> : null}
-            {showChart ? <HotSearchHot source={hotSearchesDataset}/> : null}
         </div>
     );
 };
