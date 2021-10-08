@@ -15,7 +15,6 @@ const GitHubCalendar = (props) => {
         myChart.resize();
     };
 
-
     useEffect(() => {
         if (calendar.current != null) {
             setHeight(calendar.current.clientWidth / 7);

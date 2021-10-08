@@ -4,11 +4,14 @@ import GitHubCalendar from "../components/GitHubCalendar";
 import { GetGithubCalendarByUsername } from "../api/hot-search";
 import { message, Divider, Spin, Input } from "antd";
 
+const {Search} = Input;
+
 const About = () => {
     const [total, setTotal] = useState(0);
     const [data, setData] = useState([]);
     const [showLoading, setShowLoading] = useState(true);
     const [username, setUsername] = useState("akazwz");
+    const [searchValue, setSearchValue] = useState('');
     useEffect(() => {
         GetGithubCalendarByUsername(username).then((res) => {
             // http status
@@ -36,6 +39,17 @@ const About = () => {
         });
     }, [username]);
 
+    const onSearch = () => {
+        setData([]);
+        setShowLoading(true);
+        setUsername(searchValue);
+    };
+
+    const handleSearchOnInput = (e) => {
+        const value = e.target.value;
+        setSearchValue(value);
+    }
+
     return (
         <div style={{
             textAlign: 'center',
@@ -53,7 +67,14 @@ const About = () => {
             <h3>{total} contributions in 2021 ({username})</h3>
             <GitHubCalendar data={data} />
             <Divider />
-            <Input placeholder="查看我的Github 贡献 Calendar"/>
+            <Search
+                placeholder=""
+                enterButton
+                onSearch={onSearch}
+                className='search-input'
+                value={searchValue}
+                onInput={handleSearchOnInput}
+            />
         </div>
     );
 };

@@ -15,7 +15,8 @@ const HotSearchData = () => {
     const [showChart, setShowChart] = useState(false);
     const [showLoading, setShowLoading] = useState(false);
     let {content} = useParams();
-    const defaultDataset = [['time', 'rank', 'hot']];
+    let defaultDataset;
+    defaultDataset = [['time', 'rank', 'hot']];
     const [hotSearchesDataset, setHotSearchesDataset] = useState(defaultDataset);
     const [searchValue, setSearchValue] = useState('');
     const [searchPlaceHolder, setSearchPlaceHolder] = useState('');
@@ -26,9 +27,33 @@ const HotSearchData = () => {
         } else {
             setSearchValue(content);
             setSearchPlaceHolder('赵文卓不动热狗不敢动');
-            getHotSearches(content, start, stop);
+            setShowLoading(true);
+            GetHotSearchesByContent(content, start, stop)
+                .then((res) => {
+                    if ( res.status !== 200 ) {
+                        message.error('获取数据失败').then();
+                    }
+                    const {code, data, msg} = res.data
+                    if ( code !== 2000 ) {
+                        message.error(msg).then();
+                    }
+                    for ( let i = 0; i < data.length; i ++ ) {
+                        const hotSearch = data[i];
+                        const {time, searches} = hotSearch;
+                        const singleSearch = searches[0];
+                        const {rank, hot} = singleSearch;
+                        defaultDataset.push(
+                            [time, rank, hot]
+                        );
+                    }
+                    setHotSearchesDataset(defaultDataset);
+                    setShowLoading(false);
+                    setShowChart(true);
+                }).catch((err) => {
+                message.error('获取数据失败' + err).then();
+            });
         }
-    }, []);
+    }, [content, defaultDataset, stop]);
 
     const getHotSearches = (cont, start, stop) => {
         setShowLoading(true);
