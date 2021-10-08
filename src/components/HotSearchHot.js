@@ -10,40 +10,75 @@ const HotSearchHot = (props) => {
             myChart = echarts.init(hotChartRef.current);
         }
         myChart.setOption({
-            title: {
-                text: '热度趋势',
-            },
-            tooltips: {
+            tooltip: {
                 trigger: 'axis',
+                position: function (pt) {
+                    return [pt[0], '10%'];
+                }
+            },
+            title: {
+                left: 'center',
+                text: '热度趋势'
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
             },
             dataset: {
                 source: props.source,
             },
             xAxis: {
-                type: 'time',
-                position: 'top',
-                axisPointer: {
-                    label: {
-                        show: true,
-                    },
-                },
+                type: 'category',
+                boundaryGap: false,
+
             },
             yAxis: {
-                position: 'left',
+                type: 'value',
+                boundaryGap: [0, '100%'],
             },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    start: 0,
+                    end: 100
+                },
+                {
+                    start: 0,
+                    end: 10
+                }
+            ],
             series: [
                 {
+                    name: '热度',
                     type: 'line',
+                    symbol: 'none',
+                    sampling: 'lttb',
+                    itemStyle: {
+                        color: 'rgb(255, 70, 131)'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {
+                                offset: 0,
+                                color: 'rgb(255, 158, 68)'
+                            },
+                            {
+                                offset: 1,
+                                color: 'rgb(255, 70, 131)'
+                            }
+                        ])
+                    },
                     encode: {
                         x: 'time',
                         y: 'hot',
                     },
-                    label: {
-                        show: true,
-                        position: 'bottom',
-                    },
-                },
-            ],
+                }
+            ]
         });
     };
 

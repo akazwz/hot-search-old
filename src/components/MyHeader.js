@@ -29,13 +29,13 @@ const MyHeader = () => {
         <div className="header-link">
             <Menu className="menu" onClick={handleMenuOnClick} selectedKeys={[activeKey]} mode="horizontal">
                 <Menu.Item key="/">
-                    当前热搜
+                    今
                 </Menu.Item>
                 <Menu.Item key="/hot-search-data">
-                    热搜趋势
+                    势
                 </Menu.Item>
                 <Menu.Item key="/about">
-                    关于作者
+                    著
                 </Menu.Item>
             </Menu>
         </div>

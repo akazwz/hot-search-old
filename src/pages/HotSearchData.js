@@ -22,22 +22,23 @@ const HotSearchData = () => {
     const [searchPlaceHolder, setSearchPlaceHolder] = useState('');
 
     useEffect(() => {
-        if ( !content ) {
-            setSearchPlaceHolder('赵文卓不动热狗不敢动');
+        let placeholder = localStorage.getItem('placeholder');
+        if (!content) {
+            setSearchPlaceHolder(placeholder);
         } else {
             setSearchValue(content);
-            setSearchPlaceHolder('赵文卓不动热狗不敢动');
+            setSearchPlaceHolder(placeholder);
             setShowLoading(true);
             GetHotSearchesByContent(content, start, stop)
                 .then((res) => {
-                    if ( res.status !== 200 ) {
+                    if (res.status !== 200) {
                         message.error('获取数据失败').then();
                     }
                     const {code, data, msg} = res.data
-                    if ( code !== 2000 ) {
+                    if (code !== 2000) {
                         message.error(msg).then();
                     }
-                    for ( let i = 0; i < data.length; i ++ ) {
+                    for (let i = 0; i < data.length; i++) {
                         const hotSearch = data[i];
                         const {time, searches} = hotSearch;
                         const singleSearch = searches[0];
@@ -59,14 +60,14 @@ const HotSearchData = () => {
         setShowLoading(true);
         GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
-                if ( res.status !== 200 ) {
+                if (res.status !== 200) {
                     message.error('获取数据失败').then();
                 }
                 const {code, data, msg} = res.data
-                if ( code !== 2000 ) {
+                if (code !== 2000) {
                     message.error(msg).then();
                 }
-                for ( let i = 0; i < data.length; i ++ ) {
+                for (let i = 0; i < data.length; i++) {
                     const hotSearch = data[i];
                     const {time, searches} = hotSearch;
                     const singleSearch = searches[0];
@@ -91,7 +92,7 @@ const HotSearchData = () => {
     const {Search} = Input;
     const onSearch = (value) => {
         setShowChart(false);
-        if ( searchValue === '' ) {
+        if (searchValue === '') {
             setSearchValue(searchPlaceHolder);
             getHotSearches(searchPlaceHolder, start, stop);
         } else {
@@ -100,7 +101,7 @@ const HotSearchData = () => {
     };
     return (
         <div>
-            <Divider/>
+            <Divider />
             <Row gutter={16} className='search-input-box'>
                 <Col className='gutter-row' span={24}>
                     <Search
@@ -108,19 +109,19 @@ const HotSearchData = () => {
                         enterButton
                         suffix={searchValue !== '' ? <ClearOutlined onClick={() => {
                             setSearchValue('');
-                        }}/> : null}
+                        }} /> : null}
                         size='large'
                         onSearch={onSearch}
                         className='search-input'
                         value={searchValue}
                         onInput={handleSearchOnInput}
                     />
-                    <Divider/>
+                    <Divider />
                 </Col>
                 <Col className='gutter-row' span={24}>
-                    {showLoading ? <Spin size='large'/> : null}
-                    {showChart ? <HotSearchRank source={hotSearchesDataset}/> : null}
-                    {showChart ? <HotSearchHot source={hotSearchesDataset}/> : null}
+                    {showLoading ? <Spin size='large' /> : null}
+                    {showChart ? <HotSearchRank source={hotSearchesDataset} /> : null}
+                    {showChart ? <HotSearchHot source={hotSearchesDataset} /> : null}
                 </Col>
             </Row>
         </div>

@@ -20,6 +20,8 @@ const Home = () => {
                     return;
                 }
                 const {searches} = data;
+                const {content} = searches[0];
+                localStorage.setItem('placeholder', content)
                 const wordArr = searches.slice(0, 20)
                 let wordDataArr = []
                 wordArr.map((search) => {
