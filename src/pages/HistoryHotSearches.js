@@ -46,7 +46,9 @@ const HistoryHotSearches = () => {
     };
 
     return (
-        <div>
+        <div style={{
+            margin: 10,
+        }}>
             <BackTop />
             <Row className="date-time-picker">
                 <Col span={24}>

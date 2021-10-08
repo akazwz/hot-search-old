@@ -51,6 +51,7 @@ const HotSearchData = () => {
                     setShowLoading(false);
                     setShowChart(true);
                 }).catch((err) => {
+                setShowLoading(false);
                 message.error('获取数据失败' + err).then();
             });
         }
@@ -58,6 +59,7 @@ const HotSearchData = () => {
 
     const getHotSearches = (cont, start, stop) => {
         setShowLoading(true);
+        setShowChart(false);
         GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
                 if (res.status !== 200) {
@@ -80,6 +82,7 @@ const HotSearchData = () => {
                 setShowLoading(false);
                 setShowChart(true);
             }).catch((err) => {
+            setShowLoading(false);
             message.error('获取数据失败' + err).then();
         });
     }
@@ -91,7 +94,6 @@ const HotSearchData = () => {
 
     const {Search} = Input;
     const onSearch = (value) => {
-        setShowChart(false);
         if (searchValue === '') {
             setSearchValue(searchPlaceHolder);
             getHotSearches(searchPlaceHolder, start, stop);
