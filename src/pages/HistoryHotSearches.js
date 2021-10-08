@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
-import {Empty, DatePicker, Space, Row, Col, Button, BackTop, message, Divider} from 'antd';
+import React, { useState } from 'react';
+import { Empty, DatePicker, Space, Row, Col, Button, BackTop, message, Divider } from 'antd';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import HotSearches from '../components/HotSearches';
-import {GetHotSearchesByDuration} from '../api/hot-search';
+import { GetHotSearchesByDuration } from '../api/hot-search';
 import moment from 'moment';
 
 const {RangePicker} = DatePicker;
 // 历史热搜
 const HistoryHotSearches = () => {
     const [showHotSearches, setShowHotSearches] = useState(false);
+    const [dates, setDates] = useState([]);
     const [searches, setSearches] = useState([]);
     const [startStr, setStartStr] = useState('');
     const [endStr, setEndStr] = useState('');
@@ -35,27 +36,29 @@ const HistoryHotSearches = () => {
             });
     };
 
-
     const disabledDate = current => {
-        return current < moment("2021-08-25");
+        const tooLate = dates[0] && current.diff(dates[0], 'days') > 3;
+        const tooEarly = dates[1] && dates[1].diff(current, 'days') > 3;
+        return tooEarly || tooLate || current < moment("2021-10-1") || current > moment().endOf('day');
     };
 
     return (
         <div>
-            <BackTop/>
+            <BackTop />
             <Row className="date-time-picker">
                 <Col span={24}>
                     <Space direction="vertical">
                         <RangePicker
                             locale={locale}
-                            showTime={{format: 'HH:mm', minuteStep: 15}}
+                            showTime={{format: 'HH:mm', minuteStep: 1}}
                             format="YYYY-MM-DD HH:mm"
                             disabledDate={disabledDate}
-                            onChange={handleRangePickerOnChange}/>
+                            onCalendarChange={val => setDates(val)}
+                            onChange={handleRangePickerOnChange} />
                     </Space>
                 </Col>
             </Row>
-            <Divider/>
+            <Divider />
             <Row className="date-time-picker">
                 <Col span={24}>
                     <Button
@@ -65,8 +68,8 @@ const HistoryHotSearches = () => {
                     </Button>
                 </Col>
             </Row>
-            <Divider/>
-            {showHotSearches ? <HotSearches searches={searches}/> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
+            <Divider />
+            {showHotSearches ? <HotSearches searches={searches} /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
         </div>
     );
 };

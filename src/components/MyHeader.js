@@ -31,6 +31,9 @@ const MyHeader = () => {
                 <Menu.Item key="/">
                     今
                 </Menu.Item>
+                <Menu.Item key="/history-hot-searches">
+                    史
+                </Menu.Item>
                 <Menu.Item key="/hot-search-data">
                     势
                 </Menu.Item>
