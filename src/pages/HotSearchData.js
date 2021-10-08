@@ -111,7 +111,10 @@ const HotSearchData = () => {
         }
     };
     return (
-        <div>
+        <div style={{
+            textAlign: 'center',
+            margin: 10,
+        }}>
             <Divider/>
             <Row gutter={16} className='search-input-box'>
                 <Col className='gutter-row' span={24}>
