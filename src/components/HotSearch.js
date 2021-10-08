@@ -10,16 +10,18 @@ const HotSearch = (props) => {
             itemLayout='horizontal'
             dataSource={props.hotSearch}
             renderItem={(item) => {
-                const {rank, content, hot} = item
+                const {rank, content, hot, icon} = item
                 const contentUrl = encodeURIComponent(content);
                 return (
                     (
                         <List.Item>
                             <List.Item.Meta
                                 avatar={<Avatar>{rank}</Avatar>}
-                                title={<Link to={"/hot-search-data/" + contentUrl}><span
-                                    className='content-span'>{content}</span>&nbsp;<span
-                                    className='hot-span'>{hot}</span></Link>}
+                                title={<Link to={"/hot-search-data/" + contentUrl}>
+                                    <span className='content-span'>{content}</span>&nbsp;
+                                    <span className='hot-span'>{hot}</span>&nbsp;
+                                    <span className='icon-span'>{icon}</span>&nbsp;
+                                </Link>}
                             />
                         </List.Item>
                     )
