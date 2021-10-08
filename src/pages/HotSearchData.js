@@ -25,6 +25,7 @@ const HotSearchData = () => {
         let placeholder = localStorage.getItem('placeholder');
         if (!content) {
             setSearchPlaceHolder(placeholder);
+            setShowLoading(false);
         } else {
             setSearchValue(content);
             setSearchPlaceHolder(placeholder);
@@ -33,10 +34,14 @@ const HotSearchData = () => {
                 .then((res) => {
                     if (res.status !== 200) {
                         message.error('获取数据失败').then();
+                        setShowLoading(false);
+                        return;
                     }
                     const {code, data, msg} = res.data
                     if (code !== 2000) {
+                        setShowLoading(false);
                         message.error(msg).then();
+                        return;
                     }
                     for (let i = 0; i < data.length; i++) {
                         const hotSearch = data[i];
@@ -63,11 +68,15 @@ const HotSearchData = () => {
         GetHotSearchesByContent(cont, start, stop)
             .then((res) => {
                 if (res.status !== 200) {
+                    setShowLoading(false);
                     message.error('获取数据失败').then();
+                    return
                 }
                 const {code, data, msg} = res.data
                 if (code !== 2000) {
+                    setShowLoading(false);
                     message.error(msg).then();
+                    return;
                 }
                 for (let i = 0; i < data.length; i++) {
                     const hotSearch = data[i];
