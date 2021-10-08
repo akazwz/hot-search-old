@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
 import 'echarts-wordcloud';
+import { useHistory } from 'react-router-dom';
 
 // 热搜词云
 const WordCloud = (props) => {
+    let history = useHistory();
     const hotChartRef = useRef(null);
     const initOrUpdateEcharts = () => {
         let myChart = echarts.getInstanceByDom(hotChartRef.current);
@@ -11,6 +13,8 @@ const WordCloud = (props) => {
             myChart = echarts.init(hotChartRef.current, null, {renderer: 'svg'});
         }
         myChart.on('click', (param) => {
+            const {name} = param.data;
+            history.push('/hot-search-data/' + name);
         });
         myChart.setOption({
             title: {},
