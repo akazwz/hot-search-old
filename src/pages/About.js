@@ -53,7 +53,7 @@ const About = () => {
     return (
         <div style={{
             textAlign: 'center',
-            marginTop: 30,
+            margin: 10,
         }}>
             <h2>赵文卓</h2>
             <Divider />
@@ -68,7 +68,7 @@ const About = () => {
             <GitHubCalendar data={data} />
             <Divider />
             <Search
-                placeholder=""
+                placeholder="输入github用户名查看你的贡献日历图"
                 enterButton
                 onSearch={onSearch}
                 className='search-input'
