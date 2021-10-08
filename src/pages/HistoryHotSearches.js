@@ -10,6 +10,7 @@ const {RangePicker} = DatePicker;
 // 历史热搜
 const HistoryHotSearches = () => {
     const [showHotSearches, setShowHotSearches] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [dates, setDates] = useState([]);
     const [searches, setSearches] = useState([]);
     const [startStr, setStartStr] = useState('');
@@ -21,6 +22,7 @@ const HistoryHotSearches = () => {
     };
 
     const handleBtnStartToSearchOnClick = () => {
+        setLoading(true);
         GetHotSearchesByDuration(startStr, endStr)
             .then((res) => {
                 if (res.status === 200) {
@@ -29,10 +31,11 @@ const HistoryHotSearches = () => {
                 } else {
                     message.error("获取失败").then();
                 }
+                setLoading(false);
             })
             .catch((err) => {
-                console.log(err);
-                message.error("获取失败").then();
+                message.error("获取失败:" + err).then();
+                setLoading(false);
             });
     };
 
@@ -63,6 +66,7 @@ const HistoryHotSearches = () => {
                 <Col span={24}>
                     <Button
                         onClick={handleBtnStartToSearchOnClick}
+                        loading={loading}
                     >
                         开始搜索
                     </Button>
