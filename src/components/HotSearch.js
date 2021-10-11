@@ -30,7 +30,6 @@ const HotSearch = (props) => {
                                         }}>{rank}</Text>}
                                         title={<Link to={"/hot-search-data/" + contentUrl}>
                                             <Text style={{
-                                                marginLeft: '3px',
                                                 fontSize: 17,
                                                 fontWeight: '500',
                                             }}
@@ -40,7 +39,7 @@ const HotSearch = (props) => {
                                             <Text style={{
                                                 fontWeight: '300',
                                                 fontSize: 13,
-                                                marginLeft: '7px',
+                                                marginLeft: '3px',
                                             }}
                                             >
                                                 {hot}
@@ -49,14 +48,14 @@ const HotSearch = (props) => {
                                                 <Text style={{
                                                     color: '#F28241',
                                                     fontSize: 13,
-                                                    marginLeft: 3,
+                                                    marginLeft: '3px',
                                                 }}
                                                 >{tag}</Text>
                                             )}
                                             <Text style={{
                                                 color: icon === '新' ? '#4EA4D9' : '#EE2027',
                                                 fontSize: 14,
-                                                marginLeft: 3,
+                                                marginLeft: '3px',
                                             }}
                                             >
                                                 {icon}
