@@ -6,7 +6,6 @@ import HotSearches from '../components/HotSearches';
 import { GetHotSearchesByDuration } from '../api/hot-search';
 import moment from 'moment';
 
-const {RangePicker} = DatePicker;
 // 历史热搜
 const HistoryHotSearches = () => {
     const [showHotSearches, setShowHotSearches] = useState(false);
@@ -16,16 +15,18 @@ const HistoryHotSearches = () => {
     const [startStr, setStartStr] = useState('');
     const [endStr, setEndStr] = useState('');
 
-    const handleRangePickerOnChange = (value, dateStr) => {
-        setStartStr(dateStr[0].replace(' ', '-').replace(':', '-'));
-        setEndStr(dateStr[1].replace(' ', '-').replace(':', '-'));
+    const handleDatePickerOnChange = (date, dateStr) => {
+        const startStr = moment(dateStr).add(- 2, 'hours').format("YYYY-MM-DD-HH-mm");
+        const endStr = moment(dateStr).format("YYYY-MM-DD-HH-mm");
+        setStartStr(startStr);
+        setEndStr(endStr);
     };
 
     const handleBtnStartToSearchOnClick = () => {
         setLoading(true);
         GetHotSearchesByDuration(startStr, endStr)
             .then((res) => {
-                if (res.status === 200) {
+                if ( res.status === 200 ) {
                     setShowHotSearches(true);
                     setSearches(res.data.data);
                 } else {
@@ -49,22 +50,23 @@ const HistoryHotSearches = () => {
         <div style={{
             margin: 10,
         }}>
-            <BackTop />
-            <Row className="date-time-picker">
+            <BackTop/>
+            <Row className='date-time-picker'>
                 <Col span={24}>
-                    <Space direction="vertical">
-                        <RangePicker
+                    <Space direction='vertical'>
+                        <DatePicker
                             locale={locale}
                             showTime={{format: 'HH:mm', minuteStep: 1}}
-                            format="YYYY-MM-DD HH:mm"
+                            format='YYYY-MM-DD HH:mm'
                             disabledDate={disabledDate}
                             onCalendarChange={val => setDates(val)}
-                            onChange={handleRangePickerOnChange} />
+                            onChange={handleDatePickerOnChange}
+                        />
                     </Space>
                 </Col>
             </Row>
-            <Divider />
-            <Row className="date-time-picker">
+            <Divider/>
+            <Row className='date-time-picker'>
                 <Col span={24}>
                     <Button
                         onClick={handleBtnStartToSearchOnClick}
@@ -74,8 +76,8 @@ const HistoryHotSearches = () => {
                     </Button>
                 </Col>
             </Row>
-            <Divider />
-            {showHotSearches ? <HotSearches searches={searches} /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
+            <Divider/>
+            {showHotSearches ? <HotSearches searches={searches}/> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}/>}
         </div>
     );
 };
