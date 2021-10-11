@@ -11,6 +11,7 @@ const MyHeader = () => {
     let historyHotSearches = useRouteMatch("/history-hot-searches");
     let about = useRouteMatch("/about");
     let hotSearchData = useRouteMatch("/hot-search-data");
+    let sub = useRouteMatch("/sub");
     const [activeKey, setActiveKey] = useState('/');
 
     const handleMenuOnClick = (obj) => {
@@ -27,7 +28,10 @@ const MyHeader = () => {
         if ( about !== null ) {
             setActiveKey(about.path);
         }
-    }, [about, historyHotSearches, hotSearchData]);
+        if ( sub !== null ) {
+            setActiveKey(sub.path);
+        }
+    }, [about, historyHotSearches, hotSearchData, sub]);
 
     return (
         <div className='header-link'>
@@ -40,6 +44,9 @@ const MyHeader = () => {
                 </Menu.Item>
                 <Menu.Item key='/hot-search-data'>
                     势
+                </Menu.Item>
+                <Menu.Item key='/sub'>
+                    警
                 </Menu.Item>
                 <Menu.Item key='/about'>
                     著
