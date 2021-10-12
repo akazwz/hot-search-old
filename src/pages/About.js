@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { GithubOutlined } from '@ant-design/icons';
-import GitHubCalendar from "../components/GitHubCalendar";
-import { GetGithubCalendarByUsername } from "../api/hot-search";
 import { message, Divider, Spin, Input } from "antd";
+import { GithubOutlined } from '@ant-design/icons';
+import GitHubCalendar from '../components/GitHubCalendar';
+import { GetGithubCalendarByUsername } from '../api/hot-search';
 
 const {Search} = Input;
 

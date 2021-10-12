@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Empty, DatePicker, Space, Row, Col, Button, BackTop, message, Divider } from 'antd';
+import moment from 'moment';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import HotSearches from '../components/HotSearches';
 import { GetHotSearchesByDuration } from '../api/hot-search';
-import moment from 'moment';
 
 // 历史热搜
 const HistoryHotSearches = () => {

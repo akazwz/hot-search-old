@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import { useParams } from 'react-router-dom';
 import { Col, Divider, Input, message, Row, Spin } from 'antd';
 import { ClearOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import HotSearchRank from '../components/HotSearchRank';
 import HotSearchHot from '../components/HotSearchHot';
 import { GetHotSearchesByContent } from '../api/hot-search';
-import { useParams } from 'react-router-dom';
 
 // 热搜数据
 const HotSearchData = () => {

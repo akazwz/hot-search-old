@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { BackTop, message } from 'antd';
 import { GetCurrentHotSearch } from '../api/hot-search';
 import HotSearch from '../components/HotSearch';
-import { BackTop, message } from 'antd';
 import WordCloud from '../components/WordCloud';
 
 // 主页,当前热搜

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as echarts from 'echarts';
 import 'echarts-wordcloud';
-import { useHistory } from 'react-router-dom';
 
 // 热搜词云
 const WordCloud = (props) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import * as echarts from "echarts";
+import * as echarts from 'echarts';
 
 const GitHubCalendar = (props) => {
     const calendar = useRef(null);
