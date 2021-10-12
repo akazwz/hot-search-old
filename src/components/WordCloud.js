@@ -7,6 +7,30 @@ import 'echarts-wordcloud';
 const WordCloud = (props) => {
     let history = useHistory();
     const hotChartRef = useRef(null);
+    const colors = [
+        "#F24949",
+        "#F26D6D",
+        "#F29B9B",
+        "#F07B3C",
+        "#F28241",
+        "#F86905",
+        "#D97B04",
+        "#EBA160",
+        "#D97B04",
+        "#D9A704",
+        "#F0A511",
+        "#E6B510",
+        "#78F2FF",
+        "#C3EBAC",
+        "#7DB8FF",
+        "#FFA691",
+        "#FFA691",
+        "#FFA691",
+        "#FFA691",
+        "#FFA691",
+        "#FFA691",
+        "#FFA691",
+    ];
     const initOrUpdateEcharts = () => {
         let myChart = echarts.getInstanceByDom(hotChartRef.current);
         if (!myChart) {
@@ -28,21 +52,18 @@ const WordCloud = (props) => {
                 height: '100%',
                 right: null,
                 bottom: null,
-                sizeRange: [15, 50],
-                rotationRange: [-90, 90],
-                rotationStep: 45,
-                gridSize: 8,
-                drawOutOfBound: false,
+                sizeRange: [12, 37],
+                rotationRange: [-70, 90],
+                rotationStep: 30,
+                gridSize: 7,
+                drawOutOfBound: true,
                 layoutAnimation: true,
                 textStyle: {
                     fontFamily: 'sans-serif',
                     fontWeight: 'bold',
-                    color: function () {
-                        return 'rgb(' + [
-                            Math.round(Math.random() * 160),
-                            Math.round(Math.random() * 160),
-                            Math.round(Math.random() * 160)
-                        ].join(',') + ')';
+                    color: function (params) {
+                        console.log(params);
+                        return colors[params.dataIndex];
                     }
                 },
                 emphasis: {
