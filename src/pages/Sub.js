@@ -35,12 +35,12 @@ const Sub = () => {
     return (
         <div style={{textAlign: "center"}}>
             <Divider>
-                功能预览
+                功能预览(开发中)
             </Divider>
             <Row gutter={16}>
                 {items}
             </Row>
-            <Tooltip title="新建文件夹">
+            <Tooltip title="开发进度">
                 <Progress type="circle" percent={30} />
             </Tooltip>
         </div>
