@@ -62,7 +62,6 @@ const WordCloud = (props) => {
                     fontFamily: 'sans-serif',
                     fontWeight: 'bold',
                     color: function (params) {
-                        console.log(params);
                         return colors[params.dataIndex];
                     }
                 },

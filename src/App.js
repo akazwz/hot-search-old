@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Layout } from 'antd';
-import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import Home from '../src/pages/Home';
 import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter';
