@@ -1,16 +1,16 @@
 import React from 'react';
-import { Tooltip, Progress, List, Avatar } from 'antd';
-import { WeiboOutlined, WechatOutlined, MessageOutlined } from '@ant-design/icons';
+import { Tooltip, Progress, Col, Row, Divider, Card } from 'antd';
+import { TagOutlined, WechatOutlined, MessageOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 const Sub = () => {
     const data = [
         {
             title: '关键词订阅',
-            icon: <WeiboOutlined />,
+            icon: <TagOutlined />,
         },
         {
             title: '及时提醒',
-            icon: <WeiboOutlined />,
+            icon: <ThunderboltOutlined />,
         },
         {
             title: '微信通知',
@@ -22,25 +22,24 @@ const Sub = () => {
         },
     ];
 
+    const items = data.map((item) => {
+        return (
+            <Col span={12} style={{marginBottom: "30px"}}>
+                <Card title={item.icon} bordered={true}>
+                    {item.title}
+                </Card>
+            </Col>
+        );
+    });
+
     return (
-        <div style={{
-            textAlign: 'center',
-            margin: 10,
-        }}>
-            <h3>热搜预警功能预览</h3>
-            <List
-                itemLayout="horizontal"
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item>
-                        <List.Item.Meta
-                            avatar={<Avatar icon={item.icon} />}
-                            title={<a href="https://ant.design">{item.title}</a>}
-                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                        />
-                    </List.Item>
-                )}
-            />,
+        <div style={{textAlign: "center"}}>
+            <Divider>
+                功能预览
+            </Divider>
+            <Row gutter={16}>
+                {items}
+            </Row>
             <Tooltip title="新建文件夹">
                 <Progress type="circle" percent={30} />
             </Tooltip>
