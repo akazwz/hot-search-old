@@ -1,5 +1,6 @@
+import React, { useEffect } from 'react';
 import { Layout } from 'antd';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useHistory, useRouteMatch } from 'react-router-dom'
 import Home from '../src/pages/Home';
 import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter';
@@ -14,6 +15,26 @@ import 'default-passive-events';
 const {Header, Footer, Content} = Layout;
 
 function App() {
+    let history = useHistory();
+    let historyHotSearches = useRouteMatch("/history-hot-searches");
+    let hotSearchData = useRouteMatch("/hot-search-data");
+    let sub = useRouteMatch("/sub");
+    let about = useRouteMatch("/about");
+
+    useEffect(() => {
+        if (historyHotSearches !== null) {
+            history.push("/history-hot-searches")
+        }
+        if (hotSearchData !== null) {
+            history.push("/hot-search-data")
+        }
+        if (sub !== null) {
+            history.push("/sub")
+        }
+        if (about !== null) {
+            history.push("/about")
+        }
+    }, [about, history, historyHotSearches, hotSearchData, sub]);
     return (
         <div className='App'>
             <Layout>
