@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import { Switch, BrowserRouter as Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import Home from '../src/pages/Home';
 import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter';
