@@ -10,7 +10,6 @@ import Sub from './pages/Sub';
 import About from './pages/About';
 import './App.less';
 import './style/hot-search.less'
-import 'default-passive-events';
 
 const {Header, Footer, Content} = Layout;
 
