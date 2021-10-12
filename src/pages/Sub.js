@@ -40,8 +40,11 @@ const Sub = () => {
             <Row gutter={16}>
                 {items}
             </Row>
-            <Tooltip title="开发进度">
-                <Progress type="circle" percent={30} />
+            <Divider>
+                开发进度
+            </Divider>
+            <Tooltip title="在做了">
+                <Progress type="circle" percent={70} />
             </Tooltip>
         </div>
     );
